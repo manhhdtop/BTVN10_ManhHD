@@ -1,13 +1,31 @@
 $(function () {
     "use strict";
+    // Variable id use to save id of a row in student table
     var id;
+
+    // Variable item use to save a student
     var item;
+
+    // Variable items use to save list student
     var items;
-    var table_header = '<tr><th scope="col">ID</th><th scope="col">Họ tên</th><th scope="col">Ngày sinh</th>\n' +
+
+    // Variable table_header is html of student table title. It use to render student table
+    var table_header = '<tr class="bg-primary"><th scope="col">ID</th><th scope="col">Họ tên</th><th' +
+        ' scope="col">Ngày sinh</th>\n' +
         '<th scope="col">Giới tính</th><th scope="col">Ngày nhập học</th><th></th></tr>';
 
+    /**
+     * This method call to pagination student table
+     * @param students is list of student
+     */
     function pagination(students) {
-        $('#container').html('');
+        /**
+         * pagination is function of library pagination.js
+         * dataSource is data to paging
+         * pageSide is number of item in a page
+         * ajax is some process use before paging
+         * callback use to process data to paging
+         */
         $('#table').pagination({
             dataSource: students,
             pageSize: 5,
@@ -38,22 +56,21 @@ $(function () {
                                 break;
                         }
                         let dateFomat = '';
-                        html += '<tr><td>' + item.id + '</td>';
+                        html += '<tr><td class="min">' + item.id + '</td>';
                         html += '<td>' + item.name + '</td>';
                         let date = new Date(item.birthday);
                         dateFomat = ("0" + date.getDate()).slice(-2) + "/"
                             + ("0" + (date.getMonth() + 1)).slice(-2)
                             + "/" + date.getFullYear();
                         html += '<td>' + dateFomat + '</td>';
-                        html += '<td>' + gender + '</td>';
+                        html += '<td data-value="' + item.gender + '">' + gender + '</td>';
                         date = new Date(item.enrollDate);
                         dateFomat = ("0" + date.getDate()).slice(-2) + "/"
                             + ("0" + (date.getMonth() + 1)).slice(-2)
                             + "/" + date.getFullYear();
                         html += '<td>' + dateFomat + '</td>';
-                        html += '<td><button class="btn btn-primary mr-1 text-white edit"' +
-                            'data-id="' + item.id + '"><i class="fas' +
-                            ' fa-edit"></i></a>';
+                        html += '<td class="min"><button class="btn btn-primary mr-1 text-white edit">' +
+                            '<i class="fas fa-pen-square"></i></button>';
                         html += '<button class="btn btn-danger text-white delete" data-id="' +
                             item.id + '"><i class="fas fa-trash"></i></button></td></tr>';
                     });
@@ -64,6 +81,9 @@ $(function () {
         });
     }
 
+    /**
+     * Validate input type datepicker from datepicker by jquery-ui
+     */
     $("input.datepicker").on('blur', function () {
         let valid = true;
         if (this.value.match(/\d{1,2}[^\d]\d{1,2}[^\d]\d{4,4}/gi) == null) {
@@ -86,32 +106,48 @@ $(function () {
         }
     });
 
+    /**
+     * Init datepicker for birthday input
+     * monthNames is name for months
+     * dayNames is name for day of week
+     * firstDay check first of week is sunday or monday (0: sunday, 1: monday)
+     * dateFormat is format of date
+     */
     $("#birthdayPicker").datepicker({
         monthNames: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
             "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
         dayNames: ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
         dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
         firstDay: 1,
-        selectOtherMonths: true,
         dateFormat: "dd/mm/yy",
     });
+
+    /**
+     * Init datepicker for enrollDate input
+     * monthNames is name for months
+     * dayNames is name for day of week
+     * firstDay check first of week is sunday or monday (0: sunday, 1: monday)
+     * dateFormat is format of date
+     */
     $("#enrollDatePicker").datepicker({
         monthNames: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
             "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"],
         dayNames: ["Chủ nhật", "Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7"],
         dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
         firstDay: 1,
-        selectOtherMonths: true,
         dateFormat: "dd/mm/yy",
     });
 
+    /**
+     * Handle the onclick event of button id: insert-button open modal to insert new student
+     */
     $('#insert-button').click(function () {
         item = null;
-
+        // Get list student from server to init new id for student
         getStudents();
 
         $('#title').html('Thêm mới');
-        $('#updateBtn').html('Thêm mới');
+        $('#update-btn').html('Thêm mới');
 
         $('#id').val(items[items.length - 1].id + 1).removeClass('is-valid').removeClass('is-invalid');
         $('#name').val("").removeClass('is-valid').removeClass('is-invalid');
@@ -119,10 +155,14 @@ $(function () {
         $('#gender').val("").removeClass('is-valid').removeClass('is-invalid');
         $('#enrollDatePicker').val("").removeClass('is-valid').removeClass('is-invalid');
 
+        // Open modal
         $('#update-modal').modal('toggle');
     });
 
-    $('#deleteBtn').click(function () {
+    /**
+     * Handle the onclick event of button id: delete-btn delete a student using ajax.
+     */
+    $('#delete-btn').click(function () {
         $.ajax({
             method: 'get',
             url: '/delete?id=' + id,
@@ -130,16 +170,31 @@ $(function () {
             dataType: 'json',
             success: function (e) {
                 console.log(e);
+                $.alert(e.message, {
+                    autoClose: true,
+                    closeTime: 3000,
+                    type: 'success',
+                    position: ['top-right'],
+                });
+                getStudents();
             },
             error: function (e) {
                 console.log(e);
+                $.alert(e.message, {
+                    autoClose: true,
+                    closeTime: 3000,
+                    type: 'warning',
+                    position: ['top-right'],
+                });
             }
         });
-        getStudents();
         $('#delete-modal').modal('hide');
     });
 
-    $('#updateBtn').click(function () {
+    /**
+     * Handle the onclick event of button id: update-btn add/edit a student using ajax.
+     */
+    $('#update-btn').click(function () {
         if (validate()) {
             let url = 'id=' + $('#id').val();
             url += '&name=' + $('#name').val();
@@ -169,14 +224,21 @@ $(function () {
         }
     });
 
+    /**
+     * Handle the onclick event of button id: filter-button show/hide search input.
+     */
     $('#filter-button').click(function () {
         if ($('#filter-block').attr('data-id') === '0') {
             $('#filter-block').attr('data-id', '1').fadeIn(1500);
+            $('#filter-keyword').focus();
         } else {
             $('#filter-block').attr('data-id', '0').fadeOut(1000);
         }
     });
 
+    /**
+     * Handle the onchanging event of search input to search student and change css.
+     */
     $('#filter-keyword').on('propertychange input', function (e) {
         var valueChanged = false;
         if (e.type === 'propertychange') {
@@ -185,10 +247,37 @@ $(function () {
             valueChanged = true;
         }
         if (valueChanged) {
+            if ($(this).val().trim() === '') {
+                $('#clear-input').removeClass('btn-focus').hide();
+                $(this).removeClass('input-focus border-right-0 border');
+            } else {
+                $('#clear-input').addClass('btn-focus').show();
+                $(this).addClass('input-focus border-right-0 border');
+            }
             filter($(this).val());
         }
+    }).focus(function () {
+        if ($(this).val().trim() !== "") {
+            $(this).addClass('input-focus border-right-0 border');
+            $('#clear-input').addClass('btn-focus');
+        } else {
+            $('#clear-input').removeClass('btn-focus').hide();
+        }
+    }).blur(function () {
+        $(this).removeClass('input-focus border-right-0 border');
+        $('#clear-input').removeClass('btn-focus');
     });
 
+    /**
+     * Handle the onclick event of button id: clear-input to clear search input value.
+     */
+    $('#clear-input').click(function () {
+        $('#filter-keyword').val('').focus();
+    });
+
+    /**
+     * Function filter use to search a student by name
+     */
     function filter(keyword) {
         let result = [];
         $.each(items, function (i, item) {
@@ -199,6 +288,9 @@ $(function () {
         pagination(result);
     }
 
+    /**
+     * Function validate use to validate input field to add/edit student
+     */
     function validate() {
         let valid = true;
         $('#id').addClass('is-valid').removeClass('is-invalid');
@@ -214,7 +306,11 @@ $(function () {
             $('#birthdayPicker').addClass('is-invalid').removeClass('is-valid');
             valid = false;
         } else {
-            $('#birthdayPicker').addClass('is-valid').removeClass('is-invalid');
+            if ($('#birthdayPicker').hasClass('is-invalid')) {
+                valid = false;
+            } else {
+                $('#birthdayPicker').addClass('is-valid');
+            }
         }
         value = $('#gender').val();
         if (value == null) {
@@ -228,17 +324,27 @@ $(function () {
             $('#enrollDatePicker').addClass('is-invalid').removeClass('is-valid');
             valid = false;
         } else {
-            $('#enrollDatePicker').addClass('is-valid').removeClass('is-invalid');
+            if ($('#enrollDatePicker').hasClass('is-invalid')) {
+                valid = false;
+            } else {
+                $('#enrollDatePicker').addClass('is-valid');
+            }
         }
         return valid;
     }
 
+    /**
+     * Function removeAccent use to clear utf-8 character and convert to lowercase
+     */
     function removeAccent(s) {
         s = s.toLowerCase().replace('đ', 'd');
         s = s.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         return s;
     }
 
+    /**
+     * Function getStudents use to get list student form server
+     */
     function getStudents() {
         $.ajax({
             url: '/get-student',
@@ -256,47 +362,43 @@ $(function () {
         }, 60000);
     }
 
+    /**
+     * $(document).ready() called when page loaded
+     */
     $(document).ready(function () {
+        // Hide filter block
         $('#filter-block').attr('data-id', '0').fadeOut(0);
-
+        // Hide button clear-input
+        $('#clear-input').hide();
+        // call function getStudents
         getStudents();
 
+        /**
+         * Handle onclick from button have class name is edit to edit student
+         */
         $(document).on('click', 'button.edit', function (e) {
             id = $(this).attr('data-id');
+            let row = $(this).parent().parent();
+            item = {
+                id: row.find('td:nth-child(1)').html(),
+                name: row.find('td:nth-child(2)').html(),
+                birthday: row.find('td:nth-child(3)').html(),
+                gender: row.find('td:nth-child(4)').attr('data-value'),
+                enrollDate: row.find('td:nth-child(5)').html(),
+            };
             $('#title').html('Cập nhật');
-            $('#updateBtn').html('Cập nhật');
-            item = null;
-            $.each(items, function (index, s) {
-                if (s.id === parseInt(id)) {
-                    item = s;
-                    return;
-                }
-            });
-            if (item != null) {
-                $('#id').val(item.id).removeClass('is-valid');
-                $('#name').val(item.name).removeClass('is-valid').removeClass('is-invalid');
-                let date = new Date(item.birthday);
-                let dateFomat = ("0" + date.getDate()).slice(-2) + "/"
-                    + ("0" + (date.getMonth() + 1)).slice(-2)
-                    + "/" + date.getFullYear();
-                $('#birthdayPicker').datepicker("setDate", dateFomat).removeClass('is-valid').removeClass('is-invalid');
-                $('#gender').val(item.gender).removeClass('is-valid').removeClass('is-invalid');
-                date = new Date(item.enrollDate);
-                dateFomat = ("0" + date.getDate()).slice(-2) + "/"
-                    + ("0" + (date.getMonth() + 1)).slice(-2)
-                    + "/" + date.getFullYear();
-                $('#enrollDatePicker').datepicker("setDate", dateFomat).removeClass('is-valid').removeClass('is-invalid');
-                $('#update-modal').modal('toggle');
-            } else {
-                $.alert('Sinh viên không tồn tại', {
-                    autoClose: true,
-                    closeTime: 3000,
-                    type: 'warning',
-                    position: ['top-right'],
-                });
-            }
+            $('#update-btn').html('Cập nhật');
+            $('#id').val(item.id).removeClass('is-valid');
+            $('#name').val(item.name).removeClass('is-valid').removeClass('is-invalid');
+            $('#birthdayPicker').datepicker("setDate", item.birthday).removeClass('is-valid').removeClass('is-invalid');
+            $('#gender').val(item.gender).removeClass('is-valid').removeClass('is-invalid');
+            $('#enrollDatePicker').datepicker("setDate", item.enrollDate).removeClass('is-valid').removeClass('is-invalid');
+            $('#update-modal').modal('toggle');
         });
 
+        /**
+         * Handle onclick from button have class name is delete to delete student
+         */
         $(document).on('click', 'button.delete', function (e) {
             id = $(this).attr('data-id');
             item = null;

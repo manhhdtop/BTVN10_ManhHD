@@ -33,7 +33,7 @@
 				<div class="col-12 p-2 border rounded">
 					<div class="col-12">
 						<div class="row justify-content-between">
-							<div class="col-9 bg-primary p-1">
+							<div class="col-9 bg-primary p-3">
 								<h3>Danh sách sinh viên</h3>
 							</div>
 							<div class="col-3 bg-primary text-right p-3">
@@ -50,10 +50,18 @@
 					</div>
 					<div class="col-12 py-3 filter-block"
 					     id="filter-block" data-id="0">
-						<label for="filter-keyword"></label>
-						<input type="text" class="form-control"
-						       id="filter-keyword"
-						       placeholder="Tìm kiếm sinh viên"/>
+						<div class="input-group">
+							<label for="filter-keyword"></label>
+							<input type="text" id="filter-keyword"
+							       class="form-control"
+							       placeholder="Tìm kiếm sinh viên..">
+							<span class="input-group-append">
+								<span id="clear-input" role="button"
+										class="btn border-left-0 border text-danger input-group-text bg-white">
+									<i class="fa fa-times-circle"></i>
+								</span>
+							</span>
+						</div>
 					</div>
 					<table id="container"
 					       class="table table-bordered">
@@ -96,7 +104,7 @@
 						<button class="btn btn-secondary"
 						        data-dismiss="modal">Không
 						</button>
-						<button id="deleteBtn"
+						<button id="delete-btn"
 						        class="btn btn-danger">
 							Đồng ý
 						</button>
@@ -158,7 +166,7 @@
 						<button class="btn btn-secondary"
 						        data-dismiss="modal">Hủy
 						</button>
-						<button id="updateBtn"
+						<button id="update-btn"
 						        class="btn btn-primary">
 							Thêm mới
 						</button>

@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 
 public class Utils
@@ -104,17 +107,32 @@ public class Utils
 	/**
 	 * This method create result to send result for api
 	 *
-	 * @param method is name of api
-	 * @param code   is status of result
-	 * @param datas  is list object to return
+	 * @param method  is name of api
+	 * @param code    is status of result
+	 * @param message is message of api
 	 * @return object ApiPacket to Client
 	 */
-	public static ApiPacket getPackets(String method, int code, Object datas)
+	public static ApiPacket getPackets(String method, int code,
+			String message)
 	{
 		ApiPacket packet = new ApiPacket();
 		
 		packet.setMethod(method);
 		packet.setCode(code);
+		packet.setMessage(message);
+		packet.setDatas(new Object());
+		
+		return packet;
+	}
+	
+	public static ApiPacket getPackets(String method, int code,
+			String message, Object datas)
+	{
+		ApiPacket packet = new ApiPacket();
+		
+		packet.setMethod(method);
+		packet.setCode(code);
+		packet.setMessage(message);
 		packet.setDatas(datas);
 		
 		return packet;

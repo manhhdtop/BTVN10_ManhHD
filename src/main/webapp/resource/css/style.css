@@ -48,6 +48,26 @@ footer {
 	width: 12.5rem;
 }
 
+tr th {
+	color: #fff;
+}
+
+.input-focus {
+	border-right: none;
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+	clip-path: inset(-10px 0 -10px -10px);
+}
+
+.inside-btn {
+	background: none;
+	/*bo*/
+}
+
+.btn-focus {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+	clip-path: inset(-10px -10px -10px 0);
+}
+
 .error:before {
 	content: attr(data-text);
 	position: absolute;
@@ -59,6 +79,11 @@ footer {
 	overflow: hidden;
 	clip: rect(0, 900px, 0, 0);
 	animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+th.min, td.min {
+	width: 1%;
+	white-space: nowrap;
 }
 
 .error:after {

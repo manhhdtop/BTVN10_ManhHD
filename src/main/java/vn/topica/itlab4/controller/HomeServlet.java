@@ -25,7 +25,8 @@ public class HomeServlet extends HttpServlet
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
-		ApiPacket packet = Utils.getPackets("Get list Student", 200,
+		ApiPacket packet = Utils.getPackets("Get list Student", 200, "Get " +
+						"list Student successful",
 				StudentModel.getStudents());
 		Utils.sendResult(resp, packet);
 	}
