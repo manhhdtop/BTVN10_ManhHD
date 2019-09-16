@@ -1,0 +1,433 @@
+@CHARSET "UTF-8";
+
+:root {
+	--color-danger: #DC3545;
+	--color-primary: #007BFF;
+	--color-success: #28A745;
+	--color-warning: #FFC107;
+	--color-light: #F8F9FA;
+	--color-dark: #343A40;
+	--color-info: #17A2B8;
+}
+
+.main {
+	margin-bottom: 100px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 60px;
+}
+
+.page_error {
+	position: relative;
+	z-index: 1;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.page_error .page_error_iner {
+	height: 550px;
+	width: 100%;
+	display: table;
+}
+
+.page_error .page_error_iner .page_error_item {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.error {
+  color: #DC3545;
+  font-size: 7rem;
+  position: relative;
+  line-height: 1;
+  width: 12.5rem;
+}
+
+.error:before {
+  content: attr(data-text);
+  position: absolute;
+  left: -2px;
+  text-shadow: 1px 0 #4e73df;
+  top: 0;
+  color: #DC3545;
+  background: #f8f9fc;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+.error:after {
+  content: attr(data-text);
+  position: absolute;
+  left: 2px;
+  text-shadow: -1px 0 #e74a3b;
+  top: 0;
+  color: #DC3545;
+  background: #f8f9fc;
+  overflow: hidden;
+  clip: rect(0, 900px, 0, 0);
+  animation: noise-anim 2s infinite linear alternate-reverse;
+}
+
+.copyright_text {
+	color: #888;
+}
+
+.paginationjs {
+	line-height: 1.6;
+	font-family: Marmelad, "Lucida Grande", Arial, "Hiragino Sans GB", Georgia, sans-serif;
+	font-size: 14px;
+	box-sizing: initial;
+}
+
+.paginationjs:after {
+	display: table;
+	content: " ";
+	clear: both;
+}
+
+.paginationjs .paginationjs-pages {
+	float: left;
+}
+
+.paginationjs .paginationjs-pages ul {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+.paginationjs .paginationjs-go-button, .paginationjs .paginationjs-go-input, .paginationjs .paginationjs-nav {
+	float: left;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.paginationjs .paginationjs-pages li {
+	float: left;
+	border: 1px solid #aaa;
+	border-right: none;
+	list-style: none;
+}
+
+.paginationjs .paginationjs-pages li > a {
+	min-width: 30px;
+	height: 28px;
+	line-height: 28px;
+	display: block;
+	background: #fff;
+	font-size: 14px;
+	color: #333;
+	text-decoration: none;
+	text-align: center;
+}
+
+.paginationjs .paginationjs-pages li > a:hover {
+	background: #eee;
+}
+
+.paginationjs .paginationjs-pages li.active {
+	border: none;
+}
+
+.paginationjs .paginationjs-pages li.active > a {
+	height: 30px;
+	line-height: 30px;
+	background: var(--color-primary);
+	color: #fff;
+}
+
+.paginationjs .paginationjs-pages li.disabled > a {
+	opacity: .3;
+}
+
+.paginationjs .paginationjs-pages li.disabled > a:hover {
+	background: 0 0;
+}
+
+.paginationjs .paginationjs-pages li:first-child, .paginationjs .paginationjs-pages li:first-child > a {
+	border-radius: 3px 0 0 3px;
+}
+
+.paginationjs .paginationjs-pages li:last-child {
+	border-right: 1px solid #aaa;
+	border-radius: 0 3px 3px 0;
+}
+
+.paginationjs .paginationjs-pages li:last-child > a {
+	border-radius: 0 3px 3px 0;
+}
+
+.paginationjs.paginationjs-theme-blue .paginationjs-go-input > input[type=text],
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li {
+	border-color: #289de9;
+}
+
+.paginationjs .paginationjs-nav {
+	height: 30px;
+	line-height: 30px;
+}
+
+.paginationjs.paginationjs-small {
+	font-size: 12px;
+}
+
+.paginationjs.paginationjs-small .paginationjs-pages li > a {
+	min-width: 26px;
+	height: 24px;
+	line-height: 24px;
+	font-size: 12px;
+}
+
+.paginationjs.paginationjs-small .paginationjs-pages li.active > a {
+	height: 26px;
+	line-height: 26px;
+}
+
+.paginationjs.paginationjs-small .paginationjs-nav {
+	height: 26px;
+	line-height: 26px;
+	font-size: 12px
+}
+
+.paginationjs.paginationjs-big {
+	font-size: 16px;
+}
+
+.paginationjs.paginationjs-big .paginationjs-pages li > a {
+	min-width: 36px;
+	height: 34px;
+	line-height: 34px;
+	font-size: 16px;
+}
+
+.paginationjs.paginationjs-big .paginationjs-pages li.active > a {
+	height: 36px;
+	line-height: 36px;
+}
+
+.paginationjs.paginationjs-big .paginationjs-nav {
+	height: 36px;
+	line-height: 36px;
+	font-size: 16px;
+}
+
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li > a {
+	color: #289de9;
+}
+
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li > a:hover {
+	background: #e9f4fc;
+}
+
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li.active > a {
+	background: #289de9;
+	color: #fff;
+}
+
+.paginationjs.paginationjs-theme-blue .paginationjs-pages li.disabled > a:hover {
+	background: 0 0;
+}
+
+.paginationjs.paginationjs-theme-green .paginationjs-pages li > a {
+	color: #449d44;
+}
+
+.paginationjs.paginationjs-theme-green .paginationjs-pages li > a:hover {
+	background: #ebf4eb;
+}
+
+.paginationjs.paginationjs-theme-green .paginationjs-pages li.active > a {
+	background: #449d44;
+	color: #fff;
+}
+
+.paginationjs.paginationjs-theme-green .paginationjs-pages li.disabled > a:hover {
+	background: 0 0;
+}
+
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li > a {
+	color: #ec971f;
+}
+
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li > a:hover {
+	background: #fdf5e9;
+}
+
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li.active > a {
+	background: #ec971f;
+	color: #fff;
+}
+
+.paginationjs.paginationjs-theme-yellow .paginationjs-pages li.disabled > a:hover {
+	background: 0 0;
+}
+
+.paginationjs.paginationjs-theme-red .paginationjs-pages li > a {
+	color: #c9302c;
+}
+
+.paginationjs.paginationjs-theme-red .paginationjs-pages li > a:hover {
+	background: #faeaea;
+}
+
+.paginationjs.paginationjs-theme-red .paginationjs-pages li.active > a {
+	background: #c9302c;
+	color: #fff;
+}
+
+.paginationjs.paginationjs-theme-red .paginationjs-pages li.disabled > a:hover {
+	background: 0 0;
+}
+
+.paginationjs .paginationjs-pages li.paginationjs-next {
+	border-right: 1px solid #aaa;
+}
+
+.paginationjs.paginationjs-big .paginationjs-pages li > a {
+	line-height: 36px;
+}
+
+ul, li {
+	list-style: none;
+}
+
+[role=button] {
+	cursor: pointer
+}
+
+@-webkit-keyframes noise-anim-2 {
+  0% {
+    clip: rect(69px, 9999px, 53px, 0);
+  }
+  5% {
+    clip: rect(37px, 9999px, 82px, 0);
+  }
+  10% {
+    clip: rect(35px, 9999px, 22px, 0);
+  }
+  15% {
+    clip: rect(97px, 9999px, 91px, 0);
+  }
+  20% {
+    clip: rect(45px, 9999px, 56px, 0);
+  }
+  25% {
+    clip: rect(82px, 9999px, 3px, 0);
+  }
+  30% {
+    clip: rect(73px, 9999px, 70px, 0);
+  }
+  35% {
+    clip: rect(70px, 9999px, 50px, 0);
+  }
+  40% {
+    clip: rect(15px, 9999px, 87px, 0);
+  }
+  45% {
+    clip: rect(78px, 9999px, 34px, 0);
+  }
+  50% {
+    clip: rect(95px, 9999px, 21px, 0);
+  }
+  55% {
+    clip: rect(82px, 9999px, 35px, 0);
+  }
+  60% {
+    clip: rect(57px, 9999px, 30px, 0);
+  }
+  65% {
+    clip: rect(21px, 9999px, 71px, 0);
+  }
+  70% {
+    clip: rect(17px, 9999px, 42px, 0);
+  }
+  75% {
+    clip: rect(69px, 9999px, 9px, 0);
+  }
+  80% {
+    clip: rect(43px, 9999px, 54px, 0);
+  }
+  85% {
+    clip: rect(39px, 9999px, 12px, 0);
+  }
+  90% {
+    clip: rect(83px, 9999px, 34px, 0);
+  }
+  95% {
+    clip: rect(57px, 9999px, 71px, 0);
+  }
+  100% {
+    clip: rect(81px, 9999px, 41px, 0);
+  }
+}
+
+@keyframes noise-anim-2 {
+  0% {
+    clip: rect(69px, 9999px, 53px, 0);
+  }
+  5% {
+    clip: rect(37px, 9999px, 82px, 0);
+  }
+  10% {
+    clip: rect(35px, 9999px, 22px, 0);
+  }
+  15% {
+    clip: rect(97px, 9999px, 91px, 0);
+  }
+  20% {
+    clip: rect(45px, 9999px, 56px, 0);
+  }
+  25% {
+    clip: rect(82px, 9999px, 3px, 0);
+  }
+  30% {
+    clip: rect(73px, 9999px, 70px, 0);
+  }
+  35% {
+    clip: rect(70px, 9999px, 50px, 0);
+  }
+  40% {
+    clip: rect(15px, 9999px, 87px, 0);
+  }
+  45% {
+    clip: rect(78px, 9999px, 34px, 0);
+  }
+  50% {
+    clip: rect(95px, 9999px, 21px, 0);
+  }
+  55% {
+    clip: rect(82px, 9999px, 35px, 0);
+  }
+  60% {
+    clip: rect(57px, 9999px, 30px, 0);
+  }
+  65% {
+    clip: rect(21px, 9999px, 71px, 0);
+  }
+  70% {
+    clip: rect(17px, 9999px, 42px, 0);
+  }
+  75% {
+    clip: rect(69px, 9999px, 9px, 0);
+  }
+  80% {
+    clip: rect(43px, 9999px, 54px, 0);
+  }
+  85% {
+    clip: rect(39px, 9999px, 12px, 0);
+  }
+  90% {
+    clip: rect(83px, 9999px, 34px, 0);
+  }
+  95% {
+    clip: rect(57px, 9999px, 71px, 0);
+  }
+  100% {
+    clip: rect(81px, 9999px, 41px, 0);
+  }
+}
