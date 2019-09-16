@@ -126,18 +126,19 @@
 							</div>
 							<div class="form-group">
 								<label for="name">Tên sinh viên</label>
-								<input class="form-control" id="name"
+								<input class="form-control" id="name" required
 								       placeholder="Nhập họ tên...">
 							</div>
 							<div class="form-group">
 								<label for="birthdayPicker">Ngày sinh</label>
-								<input class="form-control"
+								<input class="form-control datepicker" required
 								       id="birthdayPicker" type="text"
 								       placeholder="Nhập ngày sinh...">
 							</div>
 							<div class="form-group">
 								<label for="gender">Giới tính</label>
-								<select id="gender" class="form-control">
+								<select id="gender" class="form-control"
+								        required>
 									<option value="1">Nam</option>
 									<option value="0">Nữ</option>
 									<option value="2">Khác</option>
@@ -146,7 +147,7 @@
 							<div class="form-group">
 								<label for="enrollDatePicker">Ngày nhập học
 								</label>
-								<input class="form-control"
+								<input class="form-control" required
 								       id="enrollDatePicker"
 								       type="text"
 								       placeholder="Chọn ngày nhập học">
